@@ -1,8 +1,6 @@
-using System;
 using ColorPicker.Scripts.Common;
 using UniRx;
 using UnityEngine;
-using Object = System.Object;
 
 namespace ColorPicker.Scripts
 {
