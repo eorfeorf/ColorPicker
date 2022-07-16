@@ -22,9 +22,9 @@ namespace ColorPicker.Examples
             }).AddTo(this);
 
             // セーブボタン.
-            colorPicker.OnSaveButton.Subscribe(fixColor =>
+            colorPicker.OnSaveButton.Subscribe(newColor =>
             {
-                image.color = fixColor;
+                image.color = newColor;
             }).AddTo(this);
             
             // キャンセルボタン.
