@@ -566,6 +566,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Buttons
       objectReference: {fileID: 0}
+    - target: {fileID: 4507097005046476234, guid: 0a63d058f996e04408cab5f396cf0b09, type: 3}
+      propertyPath: m_fontStyle
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4894463570677762771, guid: 0a63d058f996e04408cab5f396cf0b09, type: 3}
+      propertyPath: m_fontStyle
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0a63d058f996e04408cab5f396cf0b09, type: 3}
 --- !u!224 &5412427331354698468 stripped
