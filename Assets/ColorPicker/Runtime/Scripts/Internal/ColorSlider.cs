@@ -20,29 +20,19 @@ namespace ColorPicker.Scripts
             Observable.Merge(rect.OnPointerClick, rect.OnPointerDrag).Subscribe(data =>
             {
                 // ポインタ位置更新.
-                var localPoint = GetPointerPosition(data.position, rect.RectTransform, pointer.localPosition);
+                var localPoint = ColorPickerUtility.GetLocalPoint(data.position, rect.RectTransform);
+                Debug.Log($"ColorSlider: ClickPosition={localPoint}");
+                localPoint.x = pointer.localPosition.x;
                 pointer.localPosition = localPoint;
 
-                // 真ん中が0なので半分を底上げ.
-                Vector2 uv = ColorPickerUtility.GetLocalPoint01(localPoint, rect.RectTransform);
-
-                Debug.Log($"ColorSlider: ClickPosition={localPoint}");
+                // 座標を0~1にしてHueに適用.
+                Vector2 uv = ColorPickerUtility.LocalPointToUV(localPoint, rect.RectTransform);
                 Debug.Log($"ColorSlider: UV={uv}");
-                
-                // 色相に適用.
                 Hue01.Value = uv.y;
             }).AddTo(this);
 
             // 初期位置.
             pointer.localPosition = new Vector3(rect.RectTransform.rect.x, rect.RectTransform.rect.yMax, pointer.localPosition.z);
-        }
-
-        private Vector2 GetPointerPosition(Vector2 screenPos, RectTransform rectRectTransform, Vector3 pointerLocalPosition)
-        {
-            var localPoint = ColorPickerUtility.GetLocalPoint(screenPos, rectRectTransform);
-            localPoint.y = Mathf.Clamp(localPoint.y, rectRectTransform.rect.yMin, rectRectTransform.rect.yMax);
-            localPoint.x = pointerLocalPosition.x;
-            return localPoint;
         }
 
         public void Apply(float hue)

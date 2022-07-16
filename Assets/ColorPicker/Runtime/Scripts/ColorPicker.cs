@@ -68,28 +68,27 @@ namespace ColorPicker.Scripts
         
         private void Start()
         {
-            #region Buttons
+            // Buttons
             buttons.OnClose.Subscribe(_ =>
             {
                 onCloseButton.SetValueAndForceNotify((hsv.ToColor(), prevHsv.ToColor()));
                 prevHsv = hsv;
-                Close();
+                CloseAction();
             }).AddTo(this);
             buttons.OnSave.Subscribe(_ =>
             {
                 onSaveButton.SetValueAndForceNotify(hsv.ToColor());
                 prevHsv = hsv;  
-                Close();
+                CloseAction();
             }).AddTo(this);
             buttons.OnCancel.Subscribe(_ =>
             {
                 onCancelButton.SetValueAndForceNotify(prevHsv.ToColor());
                 hsv = prevHsv;
-                Close();
+                CloseAction();
             }).AddTo(this);
-            #endregion
             
-            #region  ParameterRGB
+            // ParameterRGB
             parameterRGB.OnEditR.Subscribe(value =>
             {
                 var rgb = hsv.ToColor();
@@ -111,9 +110,8 @@ namespace ColorPicker.Scripts
                 hsv = rgb.ToHSV();
                 ApplyOnChangedParameterRGB(rgb);
             }).AddTo(this);
-            #endregion
 
-            #region ParameterHSV
+            // ParameterHSV
             parameterHSV.OnEditH.Subscribe(value =>
             {
                 hsv.x = value;
@@ -129,37 +127,30 @@ namespace ColorPicker.Scripts
                 hsv.z = value;
                 ApplyOnChangedParameterHSV(hsv);
             }).AddTo(this);
-            #endregion
 
-            #region ColorPanel 
+            // ColorPanel 
             colorPanel.SV01.Subscribe(sv =>
             {
                 hsv.y = sv.x;
                 hsv.z = sv.y;
                 ApplyOnChangedColorPanel(hsv);
             }).AddTo(this);
-            #endregion
 
-            #region ColorSlider
+            // ColorSlider
             colorSlider.Hue01.Subscribe(hue =>
             {
                 hsv.x = hue;
                 ApplyOnChangedColorSlider(hsv);
             }).AddTo(this);
-            #endregion
             
-            //
             // ColorViewer(イベント無し)
-            //
-            
         }
 
         #region Apply
-        private void ChangeColor(Vector3 hsv)
-        {
-            onChanged.Value = hsv.ToColor();
-        }
-
+        /// <summary>
+        /// ParameterRGB変更による適用.
+        /// </summary>
+        /// <param name="color"></param>
         private void ApplyOnChangedParameterRGB(Color color)
         {
             var hsv = color.RGBToHSV();
@@ -167,9 +158,13 @@ namespace ColorPicker.Scripts
             colorPanel.Apply(hsv);
             colorSlider.Apply(hsv.x);
             parameterHSV.Apply(hsv);
-            ChangeColor(hsv);
+            SetOnChangedColor(hsv);
         }
 
+        /// <summary>
+        /// ParameterHSV変更による適用.
+        /// </summary>
+        /// <param name="hsv"></param>
         private void ApplyOnChangedParameterHSV(Vector3 hsv)
         {
             var color = hsv.ToColor();
@@ -177,18 +172,26 @@ namespace ColorPicker.Scripts
             colorPanel.Apply(hsv);
             colorSlider.Apply(hsv.x);
             parameterRGB.Apply(color);
-            ChangeColor(hsv);
+            SetOnChangedColor(hsv);
         }
 
+        /// <summary>
+        /// ColorPanel変更時の適用.
+        /// </summary>
+        /// <param name="hsv"></param>
         private void ApplyOnChangedColorPanel(Vector3 hsv)
         {
             var color = hsv.ToColor();
             colorViewer.ApplyNewColor(color);
             parameterRGB.Apply(color);
             parameterHSV.Apply(hsv);
-            ChangeColor(hsv);
+            SetOnChangedColor(hsv);
         }
 
+        /// <summary>
+        /// ColorSlider変更時の適用.
+        /// </summary>
+        /// <param name="hsv"></param>
         private void ApplyOnChangedColorSlider(Vector3 hsv)
         {
             var color = hsv.ToColor();
@@ -196,13 +199,32 @@ namespace ColorPicker.Scripts
             colorPanel.Apply(hsv);
             parameterRGB.Apply(color);
             parameterHSV.Apply(hsv);
-            ChangeColor(hsv);
+            SetOnChangedColor(hsv);
         }
+        /// <summary>
+        /// 色変更時.
+        /// </summary>
+        /// <param name="hsv"></param>
+        private void SetOnChangedColor(Vector3 hsv)
+        {
+            onChanged.Value = hsv.ToColor();
+        }
+        
         #endregion
+
+        /// <summary>
+        /// 閉じる時の必須処理.
+        /// </summary>
+        private void CloseAction()
+        {
+            isOpend = false;
+            gameObject.SetActive(false);
+        }
 
         #region public
         public void Open(Color? nowColor = null)
         {
+            // 二重オープンはしない.
             if (isOpend)
             {
                 return;
@@ -227,10 +249,8 @@ namespace ColorPicker.Scripts
 
         public void Close()
         {
-            isOpend = false;
-            gameObject.SetActive(false);
-            
             onClose.SetValueAndForceNotify((hsv.ToColor(), prevHsv.ToColor()));
+            CloseAction();
         }
         #endregion
     }

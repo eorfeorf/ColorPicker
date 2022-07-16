@@ -23,22 +23,15 @@ namespace ColorPicker.Scripts
         {
             Observable.Merge(rect.OnPointerClick, rect.OnPointerDrag).Subscribe(data =>
             {
-                var localPoint = ColorPickerUtility.GetLocalPoint(data.position, rect.RectTransform);
-                
                 // ポインタ位置更新.
-                pointer.localPosition = localPoint;
+                var localPoint = ColorPickerUtility.GetLocalPoint(data.position, rect.RectTransform);
                 Debug.Log($"ColorPanel: ClickPosition={localPoint}");
+                pointer.localPosition = localPoint;
                  
-                // 色を取得. 
-                var s = localPoint.x.Remap(rect.RectTransform.rect.xMin, rect.RectTransform.rect.xMax, 0f, 1f);
-                var v = localPoint.y.Remap(rect.RectTransform.rect.yMin, rect.RectTransform.rect.yMax, 0f, 1f);
-                sv.Value = new Vector2(s, v);
-
-                // 真ん中が0なので半分を底上げ
-                //Vector2 uv = ColorPickerUtility.GetLocalPoint01(localPoint, rect.RectTransform);
-                //Debug.Log($"ColorPanel: UV={uv}");
-                
-                
+                // 座標を0~1にしてSaturation, Valueに適用. 
+                var uv = ColorPickerUtility.LocalPointToUV(localPoint, rect.RectTransform);
+                Debug.Log($"ColorPanel: UV={uv}");
+                sv.Value = uv;
             }).AddTo(this);
         }
 

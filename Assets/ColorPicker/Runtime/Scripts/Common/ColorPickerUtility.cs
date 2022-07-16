@@ -1,3 +1,4 @@
+using ColorPicker.Scripts.Common;
 using UnityEngine;
 
 namespace ColorPicker.Scripts
@@ -13,60 +14,12 @@ namespace ColorPicker.Scripts
             return localPoint;
         }
 
-        public static Vector2 GetLocalPoint01(Vector2 localPoint, RectTransform rectTransform)
+        public static Vector2 LocalPointToUV(Vector2 pos, RectTransform rectTransform)
         {
-            // 真ん中が0なので半分を底上げ
-            return new Vector2(
-                (localPoint.x + Mathf.Abs(rectTransform.rect.xMax)) / rectTransform.rect.width,
-                (localPoint.y + Mathf.Abs(rectTransform.rect.yMax)) / rectTransform.rect.height
-            );
-        }
-
-        /// <summary>
-        /// 文字列を0~1に変換.
-        /// </summary>
-        /// <param name="value"></param>
-        /// <param name="min"></param>
-        /// <param name="max"></param>
-        /// <param name="result">true:Success false:Fail</param>
-        /// <returns></returns>
-        public static bool StringTo01(string value, int min, int max, out float result)
-        {
-            if (int.TryParse(value, out var output))
-            {
-                // 数値をチェック.
-                output = Mathf.Clamp(output, min, max);
-                    
-                // 0~1に変換.
-                var floatOutput = (float)output / max;
-                result = floatOutput;
-                return true;
-            }
-
-            result = 0f;
-            return false;
-        }
-
-        /// <summary>
-        /// 数値文字列をclamp.
-        /// </summary>
-        /// <param name="text"></param>
-        /// <param name="min"></param>
-        /// <param name="max"></param>
-        /// <param name="result"></param>
-        /// <returns></returns>
-        public static bool ClampString(string text, int min, int max, out string result)
-        {
-            if (int.TryParse(text, out var output))
-            {
-                var value = int.Parse(text);
-                value = Mathf.Clamp(value, min, max);
-                result = value.ToString();
-                return true;
-            }
-
-            result = text;
-            return false;
+            Vector2 ret;
+            ret.x = pos.x.Remap(rectTransform.rect.xMin, rectTransform.rect.xMax, 0f, 1f);
+            ret.y = pos.y.Remap(rectTransform.rect.yMin, rectTransform.rect.yMax, 0f, 1f);
+            return ret;
         }
     }
 }
