@@ -1,7 +1,5 @@
-using System;
 using ColorPicker.Scripts.Common;
 using UniRx;
-using UnityEditor.Graphs;
 using UnityEngine;
 
 namespace ColorPicker.Scripts
@@ -42,6 +40,18 @@ namespace ColorPicker.Scripts
         public IReadOnlyReactiveProperty<Color> OnChanged => onChanged;
         private ReactiveProperty<Color> onChanged = new ReactiveProperty<Color>();
         
+        
+        /// <summary>
+        /// 開く.
+        /// </summary>
+        public IReadOnlyReactiveProperty<Color> OnOpen => onOpen;
+        private ReactiveProperty<Color> onOpen = new ReactiveProperty<Color>();
+        /// <summary>
+        /// 閉じる.
+        /// </summary>
+        public IReadOnlyReactiveProperty<(Color newColor, Color nowColor)> OnClose => onClose;
+        private ReactiveProperty<(Color newColor, Color nowColor)> onClose = new ReactiveProperty<(Color newColor, Color nowColor)>();
+
         
         /// <summary>
         /// 現在の色.
@@ -191,7 +201,7 @@ namespace ColorPicker.Scripts
         #endregion
 
         #region public
-        public void Open(Color? nowColor = null, Action onOpen = null)
+        public void Open(Color? nowColor = null)
         {
             if (isOpend)
             {
@@ -212,15 +222,15 @@ namespace ColorPicker.Scripts
             parameterRGB.Apply(hsv.ToColor());
             parameterHSV.Apply(hsv);
 
-            onOpen?.Invoke();
+            onOpen.SetValueAndForceNotify(hsv.ToColor());
         }
 
-        public void Close(Action<(Color newColor, Color nowColor)> onClose = null)
+        public void Close()
         {
             isOpend = false;
             gameObject.SetActive(false);
             
-            onClose?.Invoke((hsv.ToColor(), prevHsv.ToColor()));
+            onClose.SetValueAndForceNotify((hsv.ToColor(), prevHsv.ToColor()));
         }
         #endregion
     }

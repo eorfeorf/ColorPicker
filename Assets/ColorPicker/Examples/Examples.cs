@@ -28,13 +28,25 @@ namespace ColorPicker.Examples
             }).AddTo(this);
             
             // キャンセルボタン.
-            colorPicker.OnCancelButton.Subscribe(oldColor =>
+            colorPicker.OnCancelButton.Subscribe(nowColor =>
             {
-                image.color = oldColor;
+                image.color = nowColor;
             }).AddTo(this);
             
             // 閉じるボタン.
             colorPicker.OnCloseButton.Subscribe(colors =>
+            {
+                image.color = colors.newColor;
+            }).AddTo(this);
+            
+            // Open().
+            colorPicker.OnOpen.Subscribe(newColor =>
+            {
+                
+            }).AddTo(this);
+            
+            // Close().
+            colorPicker.OnClose.Subscribe(colors =>
             {
                 image.color = colors.newColor;
             }).AddTo(this);
@@ -51,10 +63,7 @@ namespace ColorPicker.Examples
 
             if (Input.GetKeyDown(KeyCode.X))
             {
-                colorPicker.Close((colors) =>
-                {
-                    image.color = colors.nowColor;
-                });
+                colorPicker.Close();
             }
         }
     }
