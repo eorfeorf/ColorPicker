@@ -51,8 +51,10 @@ namespace ColorPicker.Examples
 
             if (Input.GetKeyDown(KeyCode.X))
             {
-                var colors = colorPicker.Close();
-                image.color = colors.nowColor;
+                colorPicker.Close((colors) =>
+                {
+                    image.color = colors.nowColor;
+                });
             }
         }
     }
