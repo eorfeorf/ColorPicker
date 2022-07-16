@@ -14,15 +14,27 @@ namespace ColorPicker.Scripts
         [SerializeField]
         private Button cancelButton;
 
-        public IObservable<Unit> OnClose { get; private set; }
-        public IObservable<Unit> OnSave { get; private set; }
-        public IObservable<Unit> OnCancel { get; private set; }
+        public IObservable<Unit> OnClose => onClose;
+        public Subject<Unit> onClose = new Subject<Unit>();
+        public IObservable<Unit> OnSave => onSave;
+        public Subject<Unit> onSave = new Subject<Unit>();
+        public IObservable<Unit> OnCancel => onCancel;
+        public Subject<Unit> onCancel = new Subject<Unit>();
 
         private void Start()
         {
-            OnClose = closeButton.OnClickAsObservable();
-            OnSave = saveButton.OnClickAsObservable();
-            OnCancel = cancelButton.OnClickAsObservable();
+            closeButton.OnClickAsObservable().Subscribe(_ =>
+            {
+                onClose.OnNext(Unit.Default);    
+            }).AddTo(this);
+            saveButton.OnClickAsObservable().Subscribe(_ =>
+            {
+                onSave.OnNext(Unit.Default);
+            }).AddTo(this);
+            cancelButton.OnClickAsObservable().Subscribe(_ =>
+            {
+                onCancel.OnNext(Unit.Default);
+            }).AddTo(this);
         }
     }
 }

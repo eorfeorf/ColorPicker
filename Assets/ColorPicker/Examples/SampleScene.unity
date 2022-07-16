@@ -292,6 +292,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2d6441249cf5a4c4d945ebded76caafb, type: 3}
+--- !u!114 &1063547189 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4781381190560718074, guid: 2d6441249cf5a4c4d945ebded76caafb, type: 3}
+  m_PrefabInstance: {fileID: 1063547188}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc2eb797fb6c2fa4c8ddcac77b5c29ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1066110004
 GameObject:
   m_ObjectHideFlags: 0
@@ -584,8 +595,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1776072245}
+  - component: {fileID: 1776072246}
   m_Layer: 0
-  m_Name: Contoroller
+  m_Name: Example
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -606,3 +618,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1776072246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1776072244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: accf4031246f9724dbb52843c4e25521, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colorPicker: {fileID: 1063547189}
+  image: {fileID: 925920421}

@@ -19,40 +19,65 @@ namespace ColorPicker.Scripts
         [SerializeField]
         private ParameterHSV parameterHSV;
 
-        
+        /// <summary>
+        /// 閉じるボタン.
+        /// </summary>
         public IReadOnlyReactiveProperty<(Color newColor, Color nowColor)> OnCloseButton => onCloseButton;
         private ReactiveProperty<(Color newColor, Color nowColor)> onCloseButton = new ReactiveProperty<(Color, Color)>();
+        /// <summary>
+        /// Saveボタン.
+        /// </summary>
         public IReadOnlyReactiveProperty<Color> OnSaveButton => onSaveButton;
         private ReactiveProperty<Color> onSaveButton = new ReactiveProperty<Color>();
+        /// <summary>
+        /// Cancelボタン.
+        /// </summary>
         public IReadOnlyReactiveProperty<Color> OnCancelButton => onCancelButton;
         private ReactiveProperty<Color> onCancelButton = new ReactiveProperty<Color>();
+        /// <summary>
+        /// 色変更中.
+        /// </summary>
         public IReadOnlyReactiveProperty<Color> OnChanged => onChanged;
         private ReactiveProperty<Color> onChanged = new ReactiveProperty<Color>();
 
+        
+        /// <summary>
+        /// 現在の色.
+        /// </summary>
         private Vector3 hsv = Vector3.one;
+        /// <summary>
+        /// 保存される前の色.
+        /// </summary>
         private Vector3 prevHsv = Vector3.one;
+        /// <summary>
+        /// すでに開いているか？.
+        /// </summary>
+        private bool isOpend = false;
         
         private void Start()
         {
-            //
-            // Buttons
-            //
+            #region Buttons
             buttons.OnClose.Subscribe(_ =>
             {
                 onCloseButton.SetValueAndForceNotify((hsv.ToColor(), prevHsv.ToColor()));
+                prevHsv = hsv;
+                Close();
             }).AddTo(this);
             buttons.OnSave.Subscribe(_ =>
             {
                 onSaveButton.SetValueAndForceNotify(hsv.ToColor());
+                prevHsv = hsv;  
+                Close();
             }).AddTo(this);
             buttons.OnCancel.Subscribe(_ =>
             {
                 onCancelButton.SetValueAndForceNotify(prevHsv.ToColor());
+                hsv = prevHsv;
+                Close();
             }).AddTo(this);
+            #endregion
             
-            //
-            // ParameterRGB
-            //
+            #region  ParameterRGB
             parameterRGB.OnEditR.Subscribe(value =>
             {
                 var rgb = hsv.ToColor();
@@ -74,10 +99,9 @@ namespace ColorPicker.Scripts
                 hsv = rgb.ToHSV();
                 ApplyOnChangedParameterRGB(rgb);
             }).AddTo(this);
-            
-            //
-            // ParameterHSV
-            //
+            #endregion
+
+            #region ParameterHSV
             parameterHSV.OnEditH.Subscribe(value =>
             {
                 hsv.x = value;
@@ -93,25 +117,24 @@ namespace ColorPicker.Scripts
                 hsv.z = value;
                 ApplyOnChangedParameterHSV(hsv);
             }).AddTo(this);
-            
-            //
-            // ColorPanel
-            //
+            #endregion
+
+            #region ColorPanel 
             colorPanel.SV01.Subscribe(sv =>
             {
                 hsv.y = sv.x;
                 hsv.z = sv.y;
                 ApplyOnChangedColorPanel(hsv);
             }).AddTo(this);
-            
-            //
-            // ColorSlider
-            //
+            #endregion
+
+            #region ColorSlider
             colorSlider.Hue01.Subscribe(hue =>
             {
                 hsv.x = hue;
                 ApplyOnChangedColorSlider(hsv);
             }).AddTo(this);
+            #endregion
             
             //
             // ColorViewer(イベント無し)
@@ -119,6 +142,7 @@ namespace ColorPicker.Scripts
             
         }
 
+        #region Apply
         private void ChangeColor(Vector3 hsv)
         {
             onChanged.Value = hsv.ToColor();
@@ -162,10 +186,37 @@ namespace ColorPicker.Scripts
             parameterHSV.Apply(hsv);
             ChangeColor(hsv);
         }
+        #endregion
 
-        public void OnEnable()
+        #region public
+        public void Open(Color? nowColor = null)
         {
-            prevHsv = hsv;
+            if (isOpend)
+            {
+                return;
+            }
+            isOpend = true;
+            
+            gameObject.SetActive(true);
+            if (nowColor != null)
+            {
+                prevHsv = nowColor.Value.ToHSV();
+            }
+            hsv = prevHsv;
+            colorViewer.ApplyNowColor(hsv.ToColor());
+            colorViewer.ApplyNewColor(hsv.ToColor());
+            colorPanel.Apply(hsv);
+            colorSlider.Apply(hsv.x);
+            parameterRGB.Apply(hsv.ToColor());
+            parameterHSV.Apply(hsv);
         }
+
+        public (Color newColor, Color nowColor) Close()
+        {
+            isOpend = false;
+            gameObject.SetActive(false);
+            return (hsv.ToColor(), prevHsv.ToColor());
+        }
+        #endregion
     }
 }
