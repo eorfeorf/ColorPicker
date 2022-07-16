@@ -20,12 +20,12 @@ namespace ColorPicker.Scripts
         private ParameterHSV parameterHSV;
 
         
-        public IReadOnlyReactiveProperty<(Color newColor, Color nowColor)> OnClose => onClose;
-        private ReactiveProperty<(Color newColor, Color nowColor)> onClose = new ReactiveProperty<(Color, Color)>();
-        public IReadOnlyReactiveProperty<Color> OnSave => onSave;
-        private ReactiveProperty<Color> onSave = new ReactiveProperty<Color>();
-        public IReadOnlyReactiveProperty<Color> OnCancel => onCancel;
-        private ReactiveProperty<Color> onCancel = new ReactiveProperty<Color>();
+        public IReadOnlyReactiveProperty<(Color newColor, Color nowColor)> OnCloseButton => onCloseButton;
+        private ReactiveProperty<(Color newColor, Color nowColor)> onCloseButton = new ReactiveProperty<(Color, Color)>();
+        public IReadOnlyReactiveProperty<Color> OnSaveButton => onSaveButton;
+        private ReactiveProperty<Color> onSaveButton = new ReactiveProperty<Color>();
+        public IReadOnlyReactiveProperty<Color> OnCancelButton => onCancelButton;
+        private ReactiveProperty<Color> onCancelButton = new ReactiveProperty<Color>();
         public IReadOnlyReactiveProperty<Color> OnChanged => onChanged;
         private ReactiveProperty<Color> onChanged = new ReactiveProperty<Color>();
 
@@ -39,15 +39,15 @@ namespace ColorPicker.Scripts
             //
             buttons.OnClose.Subscribe(_ =>
             {
-                onClose.SetValueAndForceNotify((hsv.ToColor(), prevHsv.ToColor()));
+                onCloseButton.SetValueAndForceNotify((hsv.ToColor(), prevHsv.ToColor()));
             }).AddTo(this);
             buttons.OnSave.Subscribe(_ =>
             {
-                onSave.SetValueAndForceNotify(hsv.ToColor());
+                onSaveButton.SetValueAndForceNotify(hsv.ToColor());
             }).AddTo(this);
             buttons.OnCancel.Subscribe(_ =>
             {
-                onCancel.SetValueAndForceNotify(prevHsv.ToColor());
+                onCancelButton.SetValueAndForceNotify(prevHsv.ToColor());
             }).AddTo(this);
             
             //
