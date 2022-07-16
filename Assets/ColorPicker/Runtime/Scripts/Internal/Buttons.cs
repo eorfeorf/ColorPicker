@@ -3,7 +3,7 @@ using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace ColorPicker.Scripts
+namespace ColorPicker.Runtime.Scripts.Internal
 {
     public class Buttons : MonoBehaviour
     {

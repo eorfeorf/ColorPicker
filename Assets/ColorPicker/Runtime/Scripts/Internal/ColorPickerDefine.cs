@@ -1,5 +1,5 @@
 
-namespace ColorPicker.Scripts
+namespace ColorPicker.Runtime.Scripts.Internal
 {
     public static class ColorPickerDefine
     {

@@ -2,8 +2,14 @@ using TMPro;
 using UniRx;
 using UnityEngine;
 
-namespace ColorPicker.Scripts
+namespace ColorPicker.Runtime.Scripts.Internal
 {
+    /// <summary>
+    /// RGB数値表示クラス.
+    /// R : 0 ~ 255
+    /// G : 0 ~ 255
+    /// B : 0 ~ 255
+    /// </summary>
     public class ParameterRGB : MonoBehaviour
     {
         [SerializeField]

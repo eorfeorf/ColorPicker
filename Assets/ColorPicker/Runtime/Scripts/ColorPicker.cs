@@ -1,8 +1,9 @@
-using ColorPicker.Scripts.Common;
+using ColorPicker.Runtime.Scripts.Common;
+using ColorPicker.Runtime.Scripts.Internal;
 using UniRx;
 using UnityEngine;
 
-namespace ColorPicker.Scripts
+namespace ColorPicker.Runtime.Scripts
 {
     public class ColorPicker : MonoBehaviour
     {

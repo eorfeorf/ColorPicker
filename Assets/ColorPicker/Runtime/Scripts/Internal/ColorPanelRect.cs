@@ -1,11 +1,10 @@
 using System;
-using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace ColorPicker.Scripts
+namespace ColorPicker.Runtime.Scripts.Internal
 {
     public class ColorPanelRect : MonoBehaviour
     {

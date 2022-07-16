@@ -2,7 +2,7 @@ using TMPro;
 using UniRx;
 using UnityEngine;
 
-namespace ColorPicker.Scripts
+namespace ColorPicker.Runtime.Scripts.Internal
 {
     /// <summary>
     /// HSV数値表示クラス.

@@ -1,10 +1,16 @@
-using ColorPicker.Scripts.Common;
 using UnityEngine;
 
-namespace ColorPicker.Scripts
+namespace ColorPicker.Runtime.Scripts.Common
 {
     public static class ColorPickerUtility
     {
+        /// <summary>
+        /// スクリーン座標から指定したRectTransformのローカル座標に変換.
+        /// </summary>
+        /// <param name="pos"></param>
+        /// <param name="rectTransform"></param>
+        /// <param name="camera"></param>
+        /// <returns></returns>
         public static Vector2 GetLocalPoint(Vector2 pos, RectTransform rectTransform, Camera camera = null)
         {
             camera = camera == null ? Camera.current : camera;
@@ -14,6 +20,12 @@ namespace ColorPicker.Scripts
             return localPoint;
         }
 
+        /// <summary>
+        /// RectTransformのローカル座標を0~1に変換.
+        /// </summary>
+        /// <param name="pos"></param>
+        /// <param name="rectTransform"></param>
+        /// <returns></returns>
         public static Vector2 LocalPointToUV(Vector2 pos, RectTransform rectTransform)
         {
             Vector2 ret;

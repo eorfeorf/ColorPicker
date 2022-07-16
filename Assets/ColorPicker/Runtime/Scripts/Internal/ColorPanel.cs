@@ -1,11 +1,8 @@
-using System;
-using ColorPicker.Scripts.Common;
+using ColorPicker.Runtime.Scripts.Common;
 using UniRx;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
-namespace ColorPicker.Scripts
+namespace ColorPicker.Runtime.Scripts.Internal
 {
     public class ColorPanel : MonoBehaviour
     {

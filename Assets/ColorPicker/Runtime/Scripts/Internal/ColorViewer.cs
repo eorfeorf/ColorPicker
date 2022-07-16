@@ -1,8 +1,7 @@
-using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace ColorPicker.Scripts
+namespace ColorPicker.Runtime.Scripts.Internal
 {
     public class ColorViewer : MonoBehaviour
     {
@@ -13,6 +12,8 @@ namespace ColorPicker.Scripts
         [SerializeField]
         private Material originalMaterial;
 
+        private static readonly int RGB = Shader.PropertyToID("_RGB");
+
         private void Awake()
         {
             newColor.material = new Material(originalMaterial);
@@ -21,12 +22,12 @@ namespace ColorPicker.Scripts
 
         public void ApplyNewColor(Color color)
         {
-            newColor.material.SetColor("_RGB", color);
+            newColor.material.SetColor(RGB, color);
         }
 
         public void ApplyNowColor(Color color)
         {
-            nowColor.material.SetColor("_RGB", color);
+            nowColor.material.SetColor(RGB, color);
         }
     }
 }

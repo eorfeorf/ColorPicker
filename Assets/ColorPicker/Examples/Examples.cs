@@ -8,7 +8,7 @@ namespace ColorPicker.Examples
     public class Examples : MonoBehaviour
     {
         [SerializeField]
-        private Scripts.ColorPicker colorPicker;
+        private Runtime.Scripts.ColorPicker colorPicker;
 
         [SerializeField]
         private RawImage image;

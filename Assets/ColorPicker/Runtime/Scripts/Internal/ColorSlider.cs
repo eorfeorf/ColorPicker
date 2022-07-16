@@ -1,8 +1,8 @@
-using ColorPicker.Scripts.Common;
+using ColorPicker.Runtime.Scripts.Common;
 using UniRx;
 using UnityEngine;
 
-namespace ColorPicker.Scripts
+namespace ColorPicker.Runtime.Scripts.Internal
 {
     public class ColorSlider : MonoBehaviour
     {
