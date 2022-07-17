@@ -202,6 +202,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3526275436177004880, guid: 2d6441249cf5a4c4d945ebded76caafb, type: 3}
+      propertyPath: m_text
+      value: "\u200B"
+      objectReference: {fileID: 0}
     - target: {fileID: 4781381190560718076, guid: 2d6441249cf5a4c4d945ebded76caafb, type: 3}
       propertyPath: m_Name
       value: ColorPicker
@@ -216,7 +220,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4781381190560718078, guid: 2d6441249cf5a4c4d945ebded76caafb, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4781381190560718078, guid: 2d6441249cf5a4c4d945ebded76caafb, type: 3}
       propertyPath: m_AnchorMax.x
@@ -664,7 +668,7 @@ Transform:
   m_Children:
   - {fileID: 1699405617}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1776072246
 MonoBehaviour:
