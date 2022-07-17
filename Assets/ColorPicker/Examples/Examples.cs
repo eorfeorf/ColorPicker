@@ -50,8 +50,6 @@ namespace ColorPicker.Examples
             {
                 image.color = colors.newColor;
             }).AddTo(this);
-            
-            colorPicker.gameObject.SetActive(false);
         }
 
         private void Update()
