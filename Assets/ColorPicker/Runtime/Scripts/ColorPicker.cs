@@ -19,6 +19,8 @@ namespace ColorPicker.Runtime.Scripts
         private ParameterRGB parameterRGB;
         [SerializeField]
         private ParameterHSV parameterHSV;
+        [SerializeField]
+        private ParameterCode parameterCode;
 
         /// <summary>
         /// 閉じるボタン.
@@ -89,6 +91,23 @@ namespace ColorPicker.Runtime.Scripts
                 CloseAction();
             }).AddTo(this);
             
+            // ColorViewer(イベント無し)
+            
+            // ColorPanel 
+            colorPanel.SV01.Subscribe(sv =>
+            {
+                hsv.y = sv.x;
+                hsv.z = sv.y;
+                ApplyOnChangedColorPanel(hsv);
+            }).AddTo(this);
+
+            // ColorSlider
+            colorSlider.Hue01.Subscribe(hue =>
+            {
+                hsv.x = hue;
+                ApplyOnChangedColorSlider(hsv);
+            }).AddTo(this);
+            
             // ParameterRGB
             parameterRGB.OnEditR.Subscribe(value =>
             {
@@ -129,53 +148,24 @@ namespace ColorPicker.Runtime.Scripts
                 ApplyOnChangedParameterHSV(hsv);
             }).AddTo(this);
 
-            // ColorPanel 
-            colorPanel.SV01.Subscribe(sv =>
+            // ParameterCode.
+            parameterCode.OnEditCode.Subscribe(value =>
             {
-                hsv.y = sv.x;
-                hsv.z = sv.y;
-                ApplyOnChangedColorPanel(hsv);
+                hsv = value.ToHSV();
+                ApplyOnChangedParameterCode(hsv);
             }).AddTo(this);
-
-            // ColorSlider
-            colorSlider.Hue01.Subscribe(hue =>
-            {
-                hsv.x = hue;
-                ApplyOnChangedColorSlider(hsv);
-            }).AddTo(this);
-            
-            // ColorViewer(イベント無し)
         }
 
         #region Apply
         /// <summary>
-        /// ParameterRGB変更による適用.
-        /// </summary>
-        /// <param name="color"></param>
-        private void ApplyOnChangedParameterRGB(Color color)
-        {
-            var hsv = color.RGBToHSV();
-            colorViewer.ApplyNewColor(color);
-            colorPanel.Apply(hsv);
-            colorSlider.Apply(hsv.x);
-            parameterHSV.Apply(hsv);
-            SetOnChangedColor(hsv);
-        }
-
-        /// <summary>
-        /// ParameterHSV変更による適用.
+        /// 色変更時.
         /// </summary>
         /// <param name="hsv"></param>
-        private void ApplyOnChangedParameterHSV(Vector3 hsv)
+        private void SetOnChangedColor(Vector3 hsv)
         {
-            var color = hsv.ToColor();
-            colorViewer.ApplyNewColor(color);
-            colorPanel.Apply(hsv);
-            colorSlider.Apply(hsv.x);
-            parameterRGB.Apply(color);
-            SetOnChangedColor(hsv);
+            onChanged.Value = hsv.ToColor();
         }
-
+        
         /// <summary>
         /// ColorPanel変更時の適用.
         /// </summary>
@@ -183,10 +173,11 @@ namespace ColorPicker.Runtime.Scripts
         private void ApplyOnChangedColorPanel(Vector3 hsv)
         {
             var color = hsv.ToColor();
+            SetOnChangedColor(hsv);
             colorViewer.ApplyNewColor(color);
             parameterRGB.Apply(color);
             parameterHSV.Apply(hsv);
-            SetOnChangedColor(hsv);
+            parameterCode.Apply(color);
         }
 
         /// <summary>
@@ -196,19 +187,57 @@ namespace ColorPicker.Runtime.Scripts
         private void ApplyOnChangedColorSlider(Vector3 hsv)
         {
             var color = hsv.ToColor();
+            SetOnChangedColor(hsv);
             colorViewer.ApplyNewColor(color);
             colorPanel.Apply(hsv);
             parameterRGB.Apply(color);
             parameterHSV.Apply(hsv);
-            SetOnChangedColor(hsv);
+            parameterCode.Apply(color);
         }
+        
         /// <summary>
-        /// 色変更時.
+        /// ParameterRGB変更による適用.
+        /// </summary>
+        /// <param name="color"></param>
+        private void ApplyOnChangedParameterRGB(Color color)
+        {
+            var hsv = color.RGBToHSV();
+            SetOnChangedColor(hsv);
+            colorViewer.ApplyNewColor(color);
+            colorPanel.Apply(hsv);
+            colorSlider.Apply(hsv.x);
+            parameterHSV.Apply(hsv);
+            parameterCode.Apply(color);
+        }
+
+        /// <summary>
+        /// ParameterHSV変更による適用.
         /// </summary>
         /// <param name="hsv"></param>
-        private void SetOnChangedColor(Vector3 hsv)
+        private void ApplyOnChangedParameterHSV(Vector3 hsv)
         {
-            onChanged.Value = hsv.ToColor();
+            var color = hsv.ToColor();
+            SetOnChangedColor(hsv);
+            colorViewer.ApplyNewColor(color);
+            colorPanel.Apply(hsv);
+            colorSlider.Apply(hsv.x);
+            parameterRGB.Apply(color);
+            parameterCode.Apply(color);
+        }
+
+        /// <summary>
+        /// ParameterCode変更による適用.
+        /// </summary>
+        /// <param name="hsv"></param>
+        private void ApplyOnChangedParameterCode(Vector3 hsv)
+        {
+            var color = hsv.ToColor();
+            SetOnChangedColor(hsv);
+            colorViewer.ApplyNewColor(color);
+            colorPanel.Apply(hsv);
+            colorSlider.Apply(hsv.x);
+            parameterRGB.Apply(color);
+            parameterHSV.Apply(hsv);
         }
         
         #endregion
