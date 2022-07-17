@@ -1,3 +1,4 @@
+using ColorPicker.Runtime.Scripts.Common;
 using TMPro;
 using UniRx;
 using UnityEngine;
@@ -43,7 +44,6 @@ namespace ColorPicker.Runtime.Scripts.Internal
                 inputField.SetTextWithoutNotify(intValue.ToString());
             }).AddTo(this);
             
-            // TODO:数値が空の時にonEndEditが呼ばれた場合０を入れるようにする
             Observable.Merge(inputField.onEndEdit.AsObservable(), inputField.onValueChanged.AsObservable()).Subscribe(value =>
             {
                 // 数値か？.
@@ -58,6 +58,7 @@ namespace ColorPicker.Runtime.Scripts.Internal
                 {
                     Debug.LogWarning("ParameterRGB : Invalid parameter.");
                 }
+                
             }).AddTo(this);
         }
         

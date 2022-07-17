@@ -50,7 +50,6 @@ namespace ColorPicker.Runtime.Scripts.Internal
                 else
                 {
                     Debug.LogWarning("ParameterRGB : Invalid parameter.");
-                    
                 }
             }).AddTo(this);
         }
