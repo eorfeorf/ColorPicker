@@ -371,7 +371,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3518712755486378911, guid: b22aec304d1573142860c7a5e19cbf6e, type: 3}
       propertyPath: m_Name
-      value: HSV
+      value: ParameterHSV
       objectReference: {fileID: 0}
     - target: {fileID: 3518712755486378912, guid: b22aec304d1573142860c7a5e19cbf6e, type: 3}
       propertyPath: m_Pivot.x
@@ -831,7 +831,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3518712755486378911, guid: 13df318d7761c624da1704533b48e828, type: 3}
       propertyPath: m_Name
-      value: RGB
+      value: ParameterRGB
       objectReference: {fileID: 0}
     - target: {fileID: 3518712755486378912, guid: 13df318d7761c624da1704533b48e828, type: 3}
       propertyPath: m_Pivot.x
