@@ -36,8 +36,8 @@ colorPicker.OnCancelButton.Subscribe(nowColor =>
 colorPicker.OnCloseButton.Subscribe(colors =>
 {
     // 閉じた時に変更後の色と変更前の色が選べる.
-    image.color = colors.newColor;
     // image.color = colors.nowColor;
+    image.color = colors.newColor;
 }).AddTo(this);
 
 
