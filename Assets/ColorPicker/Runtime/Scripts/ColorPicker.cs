@@ -43,19 +43,6 @@ namespace ColorPicker.Runtime.Scripts
         public IReadOnlyReactiveProperty<Color> OnChanged => onChanged;
         private ReactiveProperty<Color> onChanged = new ReactiveProperty<Color>();
         
-        
-        /// <summary>
-        /// 開く.
-        /// </summary>
-        public IReadOnlyReactiveProperty<Color> OnOpen => onOpen;
-        private ReactiveProperty<Color> onOpen = new ReactiveProperty<Color>();
-        /// <summary>
-        /// 閉じる.
-        /// </summary>
-        public IReadOnlyReactiveProperty<(Color newColor, Color nowColor)> OnClose => onClose;
-        private ReactiveProperty<(Color newColor, Color nowColor)> onClose = new ReactiveProperty<(Color newColor, Color nowColor)>();
-
-        
         /// <summary>
         /// 現在の色.
         /// </summary>
@@ -279,8 +266,6 @@ namespace ColorPicker.Runtime.Scripts
             colorSlider.Apply(hsv.x);
             parameterRGB.Apply(hsv.ToColor());
             parameterHSV.Apply(hsv);
-
-            onOpen.SetValueAndForceNotify(hsv.ToColor());
         }
 
         public void Close()
@@ -289,7 +274,6 @@ namespace ColorPicker.Runtime.Scripts
             {
                 return;
             }
-            onClose.SetValueAndForceNotify((hsv.ToColor(), prevHsv.ToColor()));
             CloseAction();
         }
         #endregion
