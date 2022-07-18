@@ -68,6 +68,10 @@ namespace ColorPicker.Runtime.Scripts
         /// すでに開いているか？.
         /// </summary>
         private bool isOpend = false;
+        /// <summary>
+        /// すでに閉じているか？
+        /// </summary>
+        private bool isClosed = false;
         
         private void Start()
         {
@@ -248,6 +252,7 @@ namespace ColorPicker.Runtime.Scripts
         private void CloseAction()
         {
             isOpend = false;
+            isClosed = true;
             gameObject.SetActive(false);
         }
 
@@ -260,8 +265,9 @@ namespace ColorPicker.Runtime.Scripts
                 return;
             }
             isOpend = true;
-            
+            isClosed = false;
             gameObject.SetActive(true);
+            
             if (nowColor != null)
             {
                 prevHsv = nowColor.Value.ToHSV();
@@ -279,6 +285,10 @@ namespace ColorPicker.Runtime.Scripts
 
         public void Close()
         {
+            if (isClosed)
+            {
+                return;
+            }
             onClose.SetValueAndForceNotify((hsv.ToColor(), prevHsv.ToColor()));
             CloseAction();
         }
