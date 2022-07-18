@@ -37,6 +37,7 @@ namespace ColorPicker.Examples
             colorPicker.OnCloseButton.Subscribe(colors =>
             {
                 image.color = colors.newColor;
+                //image.color = colors.nowColor;
             }).AddTo(this);
             
             // Open().
@@ -48,7 +49,7 @@ namespace ColorPicker.Examples
             // Close().
             colorPicker.OnClose.Subscribe(colors =>
             {
-                image.color = colors.newColor;
+                
             }).AddTo(this);
         }
 
