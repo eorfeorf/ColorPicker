@@ -39,18 +39,6 @@ namespace ColorPicker.Examples
                 image.color = colors.newColor;
                 //image.color = colors.nowColor;
             }).AddTo(this);
-            
-            // Open().
-            colorPicker.OnOpen.Subscribe(newColor =>
-            {
-                
-            }).AddTo(this);
-            
-            // Close().
-            colorPicker.OnClose.Subscribe(colors =>
-            {
-                
-            }).AddTo(this);
         }
 
         private void Update()
