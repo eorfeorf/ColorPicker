@@ -1,8 +1,8 @@
 {
   "name": "com.eorfeorf.colorpicker",
   "version": "1.0.0",
-  "displayName": "SimpleColorPicker ",
+  "displayName": "ColorPicker ",
   "description": "A simple color picker.",
-  "unity": "2021.3",
+  "unity": "2020.3",
   "license": "MIT"
 }
