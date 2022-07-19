@@ -1,9 +1,12 @@
 # ColorPicker
 A simple color picker.
 
+![image](https://user-images.githubusercontent.com/10098082/179568344-fb2a3411-6dd8-4243-b89c-722fe498df7b.png)
+
+
 # UPM Package
 1. Window > PackageManager > + > Add package from git URL...
-2. You add https://github.com/eorfeorf/ColorPicker.git?path=Assets/ColorPicker/Runtime to Package Manager.
+2. You add "https://github.com/eorfeorf/ColorPicker.git?path=Assets/ColorPicker/Runtime" to Package Manager.
 
 # Preparation
 Install [UniRx v7.1.0](https://github.com/neuecc/UniRx/releases/tag/7.1.0) and TextMeshPro(v3.0.6).
