@@ -1,7 +1,8 @@
 # ColorPicker
 A simple color picker.
 
-![image](https://user-images.githubusercontent.com/10098082/179568344-fb2a3411-6dd8-4243-b89c-722fe498df7b.png)
+![image](https://user-images.githubusercontent.com/10098082/179774222-a2caba85-c59b-4fe0-8515-936d52b682ea.png)
+
 
 
 # UPM Package
