@@ -1,5 +1,7 @@
+using System;
 using ColorPicker.Runtime.Scripts.Common;
 using ColorPicker.Runtime.Scripts.Internal;
+using ColorPicker.Runtime.Scripts.Internal.EyeDropperImpl;
 using UniRx;
 using UnityEngine;
 
@@ -21,6 +23,8 @@ namespace ColorPicker.Runtime.Scripts
         private ParameterHSV parameterHSV;
         [SerializeField]
         private ParameterCode parameterCode;
+        [SerializeField]
+        private EyeDropperView eyeDropperView;
 
         /// <summary>
         /// 閉じるボタン.
@@ -43,6 +47,7 @@ namespace ColorPicker.Runtime.Scripts
         public IReadOnlyReactiveProperty<Color> OnChanged => onChanged;
         private ReactiveProperty<Color> onChanged = new ReactiveProperty<Color>();
         
+        
         /// <summary>
         /// 現在の色.
         /// </summary>
@@ -59,7 +64,26 @@ namespace ColorPicker.Runtime.Scripts
         /// すでに閉じているか？
         /// </summary>
         private bool isClosed = false;
-        
+        /// <summary>
+        /// スポイト.
+        /// </summary>
+        private IEyeDropper eyeDropper;
+
+        private void Awake()
+        {
+            eyeDropper = EyeDropperFactory.Create();
+            if(eyeDropper == null)
+            {
+                // 対応してないプラットフォームでは非表示にする.
+                eyeDropperView.gameObject.SetActive(false);
+            }
+        }
+
+        private void OnDestroy()
+        {
+            eyeDropper.Dispose();
+        }
+
         private void Start()
         {
             // Buttons
@@ -145,6 +169,25 @@ namespace ColorPicker.Runtime.Scripts
                 hsv = value.ToHSV();
                 ApplyOnChangedParameterCode(hsv);
             }).AddTo(this);
+            
+            // スポイトボタン.
+            eyeDropperView.OnClickObservable.Subscribe(_ =>
+            {
+                eyeDropper.Ready();
+            }).AddTo(this);
+            // 確定時時スポイト色取得.
+            eyeDropper.OnClickColor.SkipLatestValueOnSubscribe().Subscribe(color =>
+            {
+                eyeDropper.Unready();
+                hsv = color.ToHSV();
+                ApplyOnChangedEyeDropper(hsv);
+            }).AddTo(this);
+            // 変更時スポイト色取得.
+            eyeDropper.OnChangeColor.SkipLatestValueOnSubscribe().Subscribe(color =>
+            {
+                hsv = color.ToHSV();
+                ApplyOnChangedEyeDropper(hsv);
+            }).AddTo(this);
         }
 
         #region Apply
@@ -229,6 +272,18 @@ namespace ColorPicker.Runtime.Scripts
             colorSlider.Apply(hsv.x);
             parameterRGB.Apply(color);
             parameterHSV.Apply(hsv);
+        }
+
+        private void ApplyOnChangedEyeDropper(Vector3 hsv)
+        {
+            var color = hsv.ToColor();
+            SetOnChangedColor(hsv);
+            colorViewer.ApplyNewColor(color);
+            colorPanel.Apply(hsv);
+            colorSlider.Apply(hsv.x);
+            parameterRGB.Apply(color);
+            parameterHSV.Apply(hsv);
+            parameterCode.Apply(color);
         }
         
         #endregion
