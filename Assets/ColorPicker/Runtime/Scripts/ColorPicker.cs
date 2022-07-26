@@ -1,4 +1,3 @@
-using System;
 using ColorPicker.Runtime.Scripts.Common;
 using ColorPicker.Runtime.Scripts.Internal;
 using ColorPicker.Runtime.Scripts.Internal.EyeDropperImpl;

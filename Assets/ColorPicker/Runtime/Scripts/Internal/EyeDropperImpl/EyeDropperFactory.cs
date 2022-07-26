@@ -1,5 +1,3 @@
-using UnityEngine;
-
 namespace ColorPicker.Runtime.Scripts.Internal.EyeDropperImpl
 {
     public static class EyeDropperFactory
