@@ -1,7 +1,7 @@
 # ColorPicker
 A simple color picker.
 
-![image](https://user-images.githubusercontent.com/10098082/179774222-a2caba85-c59b-4fe0-8515-936d52b682ea.png)
+![image](https://user-images.githubusercontent.com/10098082/181616510-0a47dcf5-32dd-4af0-be97-43d3e2664009.png)
 
 
 
