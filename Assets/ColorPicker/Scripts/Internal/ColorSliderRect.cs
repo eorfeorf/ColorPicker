@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace ColorPicker.Runtime.Scripts.Internal
+namespace ColorPicker.Scripts.Internal
 {
     public class ColorSliderRect : MonoBehaviour
     {

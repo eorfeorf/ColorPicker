@@ -4,8 +4,7 @@ using System.Runtime.InteropServices;
 using Codice.Client.ChangeTrackerService;
 using UniRx;
 using UnityEngine;
-
-namespace ColorPicker.Runtime.Scripts.Internal.EyeDropperImpl
+namespace ColorPicker.Scripts.Internal.EyeDropper
 {
     /// <summary>
     /// スポイト　Windows実装.

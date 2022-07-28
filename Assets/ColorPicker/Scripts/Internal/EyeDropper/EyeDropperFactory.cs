@@ -1,4 +1,4 @@
-namespace ColorPicker.Runtime.Scripts.Internal.EyeDropperImpl
+namespace ColorPicker.Scripts.Internal.EyeDropper
 {
     public static class EyeDropperFactory
     {

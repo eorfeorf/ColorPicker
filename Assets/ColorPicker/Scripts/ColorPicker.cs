@@ -1,10 +1,10 @@
-using ColorPicker.Runtime.Scripts.Common;
-using ColorPicker.Runtime.Scripts.Internal;
-using ColorPicker.Runtime.Scripts.Internal.EyeDropperImpl;
+using ColorPicker.Scripts.Internal;
+using ColorPicker.Scripts.Internal.Common;
+using ColorPicker.Scripts.Internal.EyeDropper;
 using UniRx;
 using UnityEngine;
 
-namespace ColorPicker.Runtime.Scripts
+namespace ColorPicker.Scripts
 {
     public class ColorPicker : MonoBehaviour
     {
