@@ -2,7 +2,7 @@ using System;
 using UniRx;
 using UnityEngine;
 
-namespace ColorPicker.Runtime.Scripts.Internal.EyeDropperImpl
+namespace ColorPicker.Scripts.Internal.EyeDropper
 {
     public interface IEyeDropper : IDisposable
     {

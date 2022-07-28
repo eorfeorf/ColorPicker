@@ -3,7 +3,7 @@ using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace ColorPicker.Runtime.Scripts.Internal
+namespace ColorPicker.Scripts.Internal
 {
     public class EyeDropperView : MonoBehaviour
     {

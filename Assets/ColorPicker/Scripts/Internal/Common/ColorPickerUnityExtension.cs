@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace ColorPicker.Runtime.Scripts.Common
+namespace ColorPicker.Scripts.Internal.Common
 {
     public static class ColorPickerUnityExtension
     {

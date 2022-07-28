@@ -2,7 +2,7 @@ using TMPro;
 using UniRx;
 using UnityEngine;
 
-namespace ColorPicker.Runtime.Scripts.Internal
+namespace ColorPicker.Scripts.Internal
 {
     /// <summary>
     /// RGB数値表示クラス.
