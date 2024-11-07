@@ -17,6 +17,12 @@ jobs:
       #   id: vars
       #   run: echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
         
+      # クリーンアップで untracked なファイルを削除
+      - name: Clean up untracked files
+        run: |
+          git clean -fdx
+
+
       # Cache
       - uses: actions/cache@v3
         with:
