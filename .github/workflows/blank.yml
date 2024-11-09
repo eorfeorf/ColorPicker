@@ -52,6 +52,7 @@ jobs:
         with:
           targetPlatform: StandaloneWindows64
           unityVersion: 2022.3.39f1  #ここに使うUnityのバージョンを入れる
+          allowDirtyBuild: true
 
       # 成果物をZIPにしてアップロードする
       - name: Upload
