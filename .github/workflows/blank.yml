@@ -7,10 +7,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # Checkout
-      - name: Check out my unity project.
+      - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          lfs: true
+          
           
       # ファイル名にgitのハッシュを含めたいので$GITHUB_OUTPUTに保存しておく
       # - name: Set outputs
@@ -53,10 +52,10 @@ jobs:
           targetPlatform: StandaloneWindows64
           unityVersion: 2022.3.39f1  #ここに使うUnityのバージョンを入れる
           allowDirtyBuild: true
+          customParameters: -nographics
 
       # 成果物をZIPにしてアップロードする
-      - name: Upload
-        uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v3
         with:
           name: Build-${{ steps.vars.outputs.sha_short }}
           path: build
